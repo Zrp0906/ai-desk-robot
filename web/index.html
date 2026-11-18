@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111714">
+  <title>贾维斯</title>
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>贾维斯</h1>
+      <button type="button" class="quiet" id="reset" disabled>清空对话</button>
+    </header>
+
+    <section class="stage" id="stage" data-state="ready" aria-label="数字人">
+      <div class="face" aria-hidden="true">
+        <div class="eyes"><i></i><i></i></div>
+        <div class="mouth"></div>
+      </div>
+      <p id="status" role="status">准备就绪</p>
+    </section>
+
+    <div class="controls">
+      <button type="button" id="record" aria-pressed="false">开始说话</button>
+      <button type="button" class="quiet" id="replay" disabled>重播回答</button>
+    </div>
+    <section class="camera" aria-label="相机预览">
+      <button type="button" class="quiet" id="camera-toggle" aria-pressed="false">开启相机</button>
+      <p>开启后可说「帮我找纸巾」。</p>
+      <video id="camera-preview" muted playsinline hidden></video>
+    </section>
+    <form id="locate-form">
+      <label class="sr-only" for="target">要找的物品</label>
+      <input id="target" value="纸巾" placeholder="要找的物品" maxlength="80" autocomplete="off" required>
+      <input id="photo" type="file" accept="image/*" capture="environment" hidden>
+      <button type="submit" class="quiet">拍照找物</button>
+    </form>
+    <p class="feedback" id="feedback" role="status"></p>
+
+    <section class="dialogue" aria-labelledby="dialogue-title">
+      <h2 id="dialogue-title">对话字幕</h2>
+      <ol id="transcript" role="log"></ol>
+      <form id="text-form">
+        <label class="sr-only" for="text">输入消息</label>
+        <input id="text" placeholder="也可以输入消息" maxlength="500" autocomplete="off" required>
+        <button type="submit">发送</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

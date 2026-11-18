@@ -1,0 +1,92 @@
+:root {
+  color-scheme: dark;
+  font-family: "DM Sans", system-ui, sans-serif;
+  background: #111714;
+  color: #edf1e8;
+  --edge: #34433a;
+  --muted: #a3b2a8;
+  --mint: #bdf4c8;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { width: min(100% - 32px, 560px); margin: 0 auto; padding: 20px 0 32px; }
+header, .controls, form { display: flex; align-items: center; gap: 10px; }
+header { justify-content: space-between; margin-bottom: 16px; }
+h1, h2, p { margin: 0; }
+h1 { font-size: 1.35rem; }
+h2 { font-size: .9rem; color: var(--muted); }
+
+.stage {
+  display: grid;
+  place-items: center;
+  gap: 18px;
+  padding: 28px 12px 16px;
+  border: 1px solid var(--edge);
+  border-radius: 26px;
+  background: radial-gradient(ellipse at 50% 38%, #2a4535, #19271f 67%, #17211b);
+}
+.face {
+  width: clamp(148px, 50vw, 224px);
+  aspect-ratio: 1.58;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  border: 1px solid #63826f;
+  border-radius: 34% / 48%;
+  background: #121e17;
+  box-shadow: 0 10px 24px #080e0a80, inset 0 0 14px #3c644530;
+}
+.eyes { display: flex; gap: clamp(30px, 10vw, 52px); }
+.eyes i {
+  width: 14px;
+  height: 32px;
+  border-radius: 99px;
+  background: #c4ffd1;
+  box-shadow: 0 0 16px #a4f2b744;
+  animation: blink 5s infinite;
+}
+.mouth { width: 27px; height: 8px; border-bottom: 3px solid #a4dbae; border-radius: 50%; }
+[data-state="recording"] .eyes i { height: 35px; background: #ffdc92; }
+[data-state="working"] .eyes { animation: scan 1.5s ease-in-out infinite alternate; }
+[data-state="speaking"] .mouth {
+  height: 9px;
+  border: 0;
+  background: var(--mint);
+  animation: talking .29s ease-in-out infinite alternate;
+}
+#status { color: var(--mint); font-size: .88rem; }
+@keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.12); } }
+@keyframes scan { to { transform: translateX(8px); } from { transform: translateX(-8px); } }
+@keyframes talking { to { transform: scaleY(1.7); } }
+
+.controls { margin-top: 12px; }
+.controls button:first-child { flex: 1; }
+.camera { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 10px; }
+.camera p { font-size: .82rem; color: var(--muted); }
+#camera-preview { width: 100%; max-height: 200px; object-fit: contain; background: #080e0a; border-radius: 12px; }
+#locate-form { margin-top: 10px; }
+button, input { font: inherit; border-radius: 12px; }
+button {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  background: var(--mint);
+  color: #11281a;
+  font-weight: 650;
+  cursor: pointer;
+}
+button[aria-pressed="true"] { background: #ffdc92; }
+button:disabled { opacity: .52; cursor: default; }
+.quiet { border-color: var(--edge); background: #1b2920; color: #e1eae1; }
+:focus-visible { outline: 2px solid #e6ffeb; outline-offset: 2px; }
+.feedback { color: #ffdc92; min-height: 2.4em; padding: 8px 0 4px; font-size: .85rem; }
+.dialogue { padding: 15px; border: 1px solid var(--edge); border-radius: 18px; }
+#transcript { margin: 8px 0; padding: 0; list-style: none; max-height: 220px; overflow: auto; }
+#transcript li { padding: 7px 2px; line-height: 1.5; overflow-wrap: anywhere; }
+#transcript li + li { border-top: 1px solid #27352d; }
+#transcript strong { color: var(--mint); margin-right: .55em; }
+input { flex: 1; min-width: 0; min-height: 44px; padding: 9px 12px; border: 1px solid var(--edge); background: #17211b; color: inherit; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+@media (prefers-reduced-motion: reduce) { .eyes, .eyes i, .mouth { animation: none !important; } }
